@@ -15,3 +15,5 @@ Pacer is an app that helps you get to your reading goal each month. Enter the bo
 - Express
 - MongoDB
 - Mongoose
+- Google Books API
+- Axios
