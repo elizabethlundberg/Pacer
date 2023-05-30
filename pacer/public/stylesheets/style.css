@@ -1,0 +1,66 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: grid;
+  grid-template-rows: 80px 270px 280px 140px;
+  justify-content: center;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.big-box {
+  background-color: black;
+  width: 730px;
+  margin: 10px;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.cover-image{
+  grid-area: cover-image;
+  background-color: darkslategray;
+}
+
+.title-and-etc{
+  grid-area: title-and-etc;
+  background-color: gray;
+}
+
+.book-display {
+  width: 160px;
+  display: grid;
+  grid-template-rows: 160px 60px;
+  grid-template-columns: 112px 50px;
+  grid-template-areas: 'cover-image indiv-books-stats' 'title-and-etc title-and-etc';
+}
+
+.indiv-books-stats {
+  grid-area: indiv-books-stats;
+  background-color: lightgray;
+}
+
+#books {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.title-and-etc {
+  padding: 10px;
+  line-height: 20px;
+}
+
+#stats{
+  display: flex;
+  justify-content: space-around;
+}
+
+.stats-box{
+  border: solid white;
+  height: 80px;
+}
+
+#total-pages-left{
+
+}
