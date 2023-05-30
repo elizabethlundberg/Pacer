@@ -10,6 +10,9 @@ const methodOverride = require('method-override')
 require('dotenv').config()
 require('./config/database')
 
+app.use(passport.initialize())
+app.use(passport.session())
+
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
 
