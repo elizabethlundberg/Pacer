@@ -14,7 +14,17 @@
       <% } %>
       </div>
       <div id="animation" class="big-box">
-        <p>Animation Goes Here</p>
+        <% if (user) { %>
+          <div id="add-books-box">
+            <form id="new-form" action="/" method="POST">
+              <label>Title: <input type="text" name="title" required></label><br>
+              <label>Author (last name, first name): <input type="text" name="author" required></label><br>
+              <label>First Page: <input type="number" name="startPage" required></label><br>
+              <label>Last Page: <input type="number" name="endPage" required></label>
+              <input type="submit" value="Add Book">
+            </form>
+          </div>
+          <% } %>
       </div>
       <div id="books" class="big-box">
         <div class="book-display">

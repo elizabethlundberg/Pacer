@@ -1,8 +1,14 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   display: grid;
+  grid-template-columns: 320px 800px 200px;
+  grid-template-areas: 'sidebar main-box .'
+}
+
+#main-box {
+  display: grid;
   grid-template-rows: 80px 270px 280px 140px;
-  justify-content: center;
+  grid-area: main-box
 }
 
 a {
@@ -61,6 +67,12 @@ a {
   height: 80px;
 }
 
-#total-pages-left{
+.add-book {
+  height: 100px;
+  width: 100px;
+}
 
+.indiv-books-stats {
+  color: black;
+  font-size: 30px;
 }

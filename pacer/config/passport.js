@@ -1,5 +1,5 @@
-require('./config/database')
-require('./config/passport')
+require('../config/database')
+require('../config/passport')
 require('../models/user')
 
 const passport = require('passport')
@@ -13,17 +13,17 @@ passport.use(
       clientSecret: process.env.GOOGLE_SECRET,
       callbackURL: process.env.GOOGLE_CALLBACK
     },
-    {
-      async function(accessToken, refreshToken, profile, cb) {
-        try {
-          let user = await User.create({
-            name: profile.displayName,
-            googleId: profile.id
-          })
-          return cb(null, user)
-        } catch (err) {
-          return cb(err)
-        }
+    async (accessToken, refreshToken, profile, cb) => {
+      try {
+        let user = await User.findOne({ googleId: profile.id })
+        if (user) return cb(null, user)
+        user = await User.create({
+          name: profile.displayName,
+          googleId: profile.id
+        })
+        return cb(null, user)
+      } catch (err) {
+        return cb(err)
       }
     }
   )

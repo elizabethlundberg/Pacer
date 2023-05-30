@@ -9,9 +9,7 @@ const methodOverride = require('method-override')
 
 require('dotenv').config()
 require('./config/database')
-
-app.use(passport.initialize())
-app.use(passport.session())
+require('./config/passport')
 
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
@@ -33,6 +31,8 @@ app.use(
     saveUninitialized: true
   })
 )
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRouter)
