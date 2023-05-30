@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <div id="main-box">
-      <div id="header" class="big-box">
-      <p>Title Goes Here</p>
-      <% if (user) { %>
-        <a href="/logout">LOG OUT</a>
-      <% } else { %>
-        <a href="/auth/google">LOG IN</a>
-      <% } %>
-      </div>
-      <div id="animation" class="big-box">
+<%- include('./partials/header') %>
         <% if (user) { %>
           <div id="add-books-box">
             <form id="new-form" action="/" method="POST">
@@ -26,72 +11,4 @@
           </div>
           <% } %>
       </div>
-      <div id="books" class="big-box">
-        <div class="book-display">
-          <div class="cover-image"><button class="add-book">+</button></div>
-        <div class="title-and-etc">
-          <% if (books.length) { %>
-            <%= books[0].title %>
-            <%= books[0].author %>
-          <% } %>
-        </div>
-        <div class="indiv-books-stats">
-          <% if (books.length) { %>
-            <%= books[0].pagesLeft %>
-            <%= books[0].pgsPerDay %>
-          <% } %>
-        </div>
-      </div>
-        <div class="book-display">
-          <div class="cover-image"><button class="add-book">+</button></div>
-        <div class="title-and-etc">
-          <% if (books.length > 1) { %>
-            <%= books[1].title %>
-            <%= books[1].author %>
-          <% } %>
-        </div>
-        <div class="indiv-books-stats">
-          <% if (books.length > 1) { %>
-            <%= books[1].pagesLeft %>
-            <%= books[1].pgsPerDay %>
-          <% } %>
-        </div>
-      </div>
-      <div class="book-display">
-        <div class="cover-image"><button class="add-book">+</button></div>
-        <div class="title-and-etc">
-          <% if (books.length > 2) { %>
-            <%= books[2].title %>
-            <%= books[2].author %>
-          <% } %>
-        </div>
-        <div class="indiv-books-stats">
-          <% if (books.length > 2) { %>
-            <%= books[2].pagesLeft %>
-            <%= books[2].pgsPerDay %>
-          <% } %>
-        </div></div>
-        <div class="book-display">
-          <div class="cover-image"><button class="add-book">+</button></div>
-        <div class="title-and-etc">
-          <% if (books.length > 3) { %>
-            <%= books[3].title %>
-            <%= books[3].author %>
-          <% } %>
-        </div>
-        <div class="indiv-books-stats">
-          <% if (books.length > 3) { %>
-            <%= books[3].pagesLeft %>
-            <%= books[3].pgsPerDay %>
-          <% } %>
-        </div></div>
-      </div>
-      <div id="stats" class="big-box">
-        <div id="total-pages-left" class="stats-box">Total Pages Left: <% if (stats) { %>
-          <%= stats.totalPagesLeft %>
-          <% } %>
-        <br></div>
-      </div>
-    </div>
-  </body>
-</html>
+<%- include('./partials/footer') %>

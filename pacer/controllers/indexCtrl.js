@@ -10,6 +10,7 @@ const index = async (req, res) => {
   let books = []
   if (req.user) {
     books = await Book.find({ user: req.user._id })
+    req.user.lastUsed = new Date()
   }
   const date = new Date()
   const totalDays = daysInMonth(date.getMonth(), date.getFullYear())
@@ -21,11 +22,12 @@ const index = async (req, res) => {
     pagesLeft = Math.floor(pagesLeft)
     book.pagesLeft = pagesLeft
     totalPagesLeft += pagesLeft
-    let pgsPerDay = (book.endPage - book.startPage) / totalDays
+    let pgsPerDay = (book.endPage - book.startPage) / daysLeft
     pgsPerDay = Math.floor(pgsPerDay)
     book.pgsPerDay = pgsPerDay
   })
-  let stats = { totalPagesLeft }
+  let totalPagesPerDay = Math.floor(totalPagesLeft / daysLeft)
+  let stats = { totalPagesLeft, totalPagesPerDay }
   res.render('index', { user: req.user, books, stats })
 }
 

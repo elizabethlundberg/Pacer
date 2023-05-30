@@ -1,0 +1,71 @@
+
+      <div id="books" class="big-box">
+        <div class="book-display">
+          <div class="cover-image"><a href="/add" class="add-book">+</a></div>
+        <div class="title-and-etc">
+          <% if (books.length) { %>
+            <%= books[0].title %> <br>
+            <%= books[0].author %>
+          <% } %>
+        </div>
+        <div class="indiv-books-stats">
+          <% if (books.length) { %>
+            <%= books[0].pagesLeft %>
+            <%= books[0].pgsPerDay %>
+          <% } %>
+        </div>
+      </div>
+        <div class="book-display">
+          <div class="cover-image"><a href="/add" class="add-book">+</a></div>
+        <div class="title-and-etc">
+          <% if (books.length > 1) { %>
+            <%= books[1].title %> <br>
+            <%= books[1].author %>
+          <% } %>
+        </div>
+        <div class="indiv-books-stats">
+          <% if (books.length > 1) { %>
+            <%= books[1].pagesLeft %>
+            <%= books[1].pgsPerDay %>
+          <% } %>
+        </div>
+      </div>
+      <div class="book-display">
+        <div class="cover-image"><a href="/add" class="add-book">+</a></div>
+        <div class="title-and-etc">
+          <% if (books.length > 2) { %>
+            <%= books[2].title %> <br>
+            <%= books[2].author %>
+          <% } %>
+        </div>
+        <div class="indiv-books-stats">
+          <% if (books.length > 2) { %>
+            <%= books[2].pagesLeft %>
+            <%= books[2].pgsPerDay %>
+          <% } %>
+        </div></div>
+        <div class="book-display">
+          <div class="cover-image"><a href="/add" class="add-book">+</a></div>
+        <div class="title-and-etc">
+          <% if (books.length > 3) { %>
+            <%= books[3].title %> <br>
+            <%= books[3].author %>
+          <% } %>
+        </div>
+        <div class="indiv-books-stats">
+          <% if (books.length > 3) { %>
+            <%= books[3].pagesLeft %>
+            <%= books[3].pgsPerDay %>
+          <% } %>
+        </div></div>
+      </div>
+      <div id="stats" class="big-box">
+        <div id="total-pages-left" class="stats-box"><% if (stats) { %>
+          Total Pages Left: <%= stats.totalPagesLeft %> <br>
+          Total Pages Per Day: <%= stats.totalPagesPerDay %>
+          <% } %>
+        <br></div>
+      </div>
+    </div>
+  </body>
+</html>

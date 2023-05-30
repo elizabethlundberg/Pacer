@@ -68,8 +68,7 @@ a {
 }
 
 .add-book {
-  height: 100px;
-  width: 100px;
+  font-size: 80px;
 }
 
 .indiv-books-stats {

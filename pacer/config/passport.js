@@ -19,7 +19,8 @@ passport.use(
         if (user) return cb(null, user)
         user = await User.create({
           name: profile.displayName,
-          googleId: profile.id
+          googleId: profile.id,
+          lastUsed: new Date()
         })
         return cb(null, user)
       } catch (err) {

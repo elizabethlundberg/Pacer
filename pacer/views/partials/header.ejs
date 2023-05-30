@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div id="main-box">
+      <div id="header" class="big-box">
+      <p>Pacer</p>
+      <% if (user) { %>
+        <a href="/logout">LOG OUT</a>
+      <% } else { %>
+        <a href="/auth/google">LOG IN</a>
+      <% } %>
+      </div>
+      <div id="animation" class="big-box">
