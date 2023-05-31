@@ -1,7 +1,11 @@
 
       <div id="books" class="big-box">
         <div class="book-display">
-          <div class="cover-image"><a href="/add" class="add-book">+</a></div>
+          <div class="cover-image"><a href="/add" class="add-book">
+            <% if (books.length === 0) { %>
+              +
+            <% } %>
+          </a></div>
         <div class="title-and-etc">
           <% if (books.length) { %>
             <%= books[0].title %> <br>
@@ -13,13 +17,18 @@
             <form action="/update/0?_method=PUT" method="POST">
               <input type="number" name="startPage" class="page-entry" value="<%= books[0].startPage %>">
             </form>
+            <p class="legend">Pages Left: </p>
             <%= books[0].pagesLeft %>
-            <%= books[0].pgsPerDay %>
           <% } %>
         </div>
       </div>
         <div class="book-display">
-          <div class="cover-image"><a href="/add" class="add-book">+</a></div>
+          <div class="cover-image">
+          <a href="/add" class="add-book">
+            <% if (books.length === 1) { %>
+              +
+            <% } %>
+          </a></div>
         <div class="title-and-etc">
           <% if (books.length > 1) { %>
             <%= books[1].title %> <br>
@@ -31,13 +40,17 @@
             <form action="/update/1?_method=PUT" method="POST">
               <input type="number" name="startPage" class="page-entry" value="<%= books[1].startPage %>">
             </form>
+            <p class="legend">Pages Left: </p>
             <%= books[1].pagesLeft %>
-            <%= books[1].pgsPerDay %>
           <% } %>
         </div>
       </div>
       <div class="book-display">
-        <div class="cover-image"><a href="/add" class="add-book">+</a></div>
+        <div class="cover-image"><a href="/add" class="add-book">
+          <% if (books.length === 2) { %>
+            +
+          <% } %>
+        </a></div>
         <div class="title-and-etc">
           <% if (books.length > 2) { %>
             <%= books[2].title %> <br>
@@ -49,12 +62,16 @@
             <form action="/update/2?_method=PUT" method="POST">
               <input type="number" name="startPage" class="page-entry" value="<%= books[2].startPage %>">
             </form>
+            <p class="legend">Pages Left: </p>
             <%= books[2].pagesLeft %>
-            <%= books[2].pgsPerDay %>
           <% } %>
         </div></div>
         <div class="book-display">
-          <div class="cover-image"><a href="/add" class="add-book">+</a></div>
+          <div class="cover-image"><a href="/add" class="add-book">
+            <% if (books.length === 3) { %>
+              +
+            <% } %>
+          </a></div>
         <div class="title-and-etc">
           <% if (books.length > 3) { %>
             <%= books[3].title %> <br>
@@ -66,8 +83,8 @@
             <form action="/update/3?_method=PUT" method="POST">
               <input type="number" method="POST" name="startPage" class="page-entry" value="<%= books[3].startPage %>">
             </form>
+            <p class="legend">Pages Left: </p>
             <%= books[3].pagesLeft %>
-            <%= books[3].pgsPerDay %>
           <% } %>
         </div></div>
       </div>

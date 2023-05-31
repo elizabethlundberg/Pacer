@@ -4,7 +4,9 @@
 }
 
 :root {
-  --mainCol: #FFD365
+  --mainCol: #FFEFC7;
+  --rightCol: #CDF360;
+  --leftCol: #FF8C7D;
 }
 
 body {
@@ -17,26 +19,31 @@ body {
 
 #main-box {
   display: grid;
-  grid-template-rows: 80px 270px 270px 140px;
+  grid-template-rows: 100px 270px 270px 150px;
   grid-template-areas: 'logo' 'animation' 'books' 'stats'
 }
 
 a {
   color: #00B7FF;
+  font-size: 100px;
+  text-decoration: none;
 }
 
 .big-box {
-  background-color: black;
   width: 730px;
   margin: 10px;
   color: white;
   display: flex;
   align-items: center;
+  padding: 8px;
 }
 
 .cover-image{
   grid-area: cover-image;
-  background-color: darkslategray;
+  background-color: var(--rightCol);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .title-and-etc{
@@ -47,7 +54,7 @@ a {
 .book-display {
   display: grid;
   grid-template-rows: 160px 60px;
-  grid-template-columns: 112px 50px;
+  grid-template-columns: 100px 62px;
   grid-template-areas: 'cover-image indiv-books-stats' 'title-and-etc title-and-etc';
 }
 
@@ -60,11 +67,33 @@ a {
   display: flex;
   grid-area: books;
   justify-content: space-around;
+  background-color: var(--leftCol);
 }
 
 .title-and-etc {
   padding: 10px;
   line-height: 20px;
+}
+
+#animation {
+  display: flex;
+  justify-content: center;
+}
+
+.page-entry {
+  width: 42px
+}
+
+#new-book-form {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+
+#new-book-form > input {
+  margin: 5px;
+  height: 25px;
 }
 
 #stats{
@@ -75,16 +104,24 @@ a {
 
 #logo-text {
   grid-area: logo;
+  font-size: 40px;
+  margin: 5px 0 0 0;
+  background-color: black;
+  padding: 15px 20px 10px 20px;
 }
 
 .stats-box{
   border: solid white;
-  height: 80px;
+  background-color: var(--leftCol);
+  display: flex;
+  padding: 20px;
+  font-size: 20px;
 }
 
 .indiv-books-stats {
   color: black;
   font-size: 30px;
+  padding: 5px;
 }
 
 #header {
@@ -95,13 +132,20 @@ a {
   grid-template-areas: '. logo login';
   justify-items: center;
   align-items: center;
-  font-size: 30px;
 }
 
 #animation {
   grid-area: animation;
+  background-color: black;
 }
 
 .login {
   grid-area: login;
+  font-size: 20px;
+  color: black;
+}
+
+.legend {
+  font-size: 14px;
+  margin: 0;
 }

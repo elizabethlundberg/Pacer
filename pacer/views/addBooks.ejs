@@ -1,14 +1,106 @@
 <%- include('./partials/header') %>
         <% if (user) { %>
           <div id="add-books-box">
-            <form id="new-form" action="/" method="POST">
-              <label>Title: <input type="text" name="title" required></label><br>
-              <label>Author (last name, first name): <input type="text" name="author" required></label><br>
-              <label>First Page: <input type="number" name="startPage" required></label><br>
-              <label>Last Page: <input type="number" name="endPage" required></label>
+            <form id="new-book-form" action="/" method="POST">
+              <input type="text" name="title" placeholder="Title" required><br>
+              <input type="text" name="author" placeholder="Author" required><br>
+              <input type="number" name="startPage" placeholder="First Page" required><br>
+              <input id="end-page" type="number" placeholder="Last Page" name="endPage" required>
               <input type="submit" value="Add Book">
             </form>
           </div>
           <% } %>
       </div>
-<%- include('./partials/footer') %>
+
+      <div id="books" class="big-box">
+        <div class="book-display">
+          <div class="cover-image"><a href="/add" class="add-book">
+            <% if (books.length === 0) { %>
+              +
+            <% } %>
+          </a></div>
+        <div class="title-and-etc">
+          <% if (books.length) { %>
+            <%= books[0].title %> <br>
+            <%= books[0].author %>
+          <% } %>
+        </div>
+        <div class="indiv-books-stats">
+          <% if (books.length) { %>
+            <form action="/update/0?_method=PUT" method="POST">
+              <input type="number" name="startPage" class="page-entry" value="<%= books[0].startPage %>">
+            </form>
+            <p class="legend">Pages Left: </p>
+            <%= books[0].pagesLeft %>
+          <% } %>
+        </div>
+      </div>
+        <div class="book-display">
+          <div class="cover-image">
+          <a href="/add" class="add-book">
+            <% if (books.length === 1) { %>
+              +
+            <% } %>
+          </a></div>
+        <div class="title-and-etc">
+          <% if (books.length > 1) { %>
+            <%= books[1].title %> <br>
+            <%= books[1].author %>
+          <% } %>
+        </div>
+        <div class="indiv-books-stats">
+          <% if (books.length > 1) { %>
+            <form action="/update/1?_method=PUT" method="POST">
+              <input type="number" name="startPage" class="page-entry" value="<%= books[1].startPage %>">
+            </form>
+            <p class="legend">Pages Left: </p>
+            <%= books[1].pagesLeft %>
+          <% } %>
+        </div>
+      </div>
+      <div class="book-display">
+        <div class="cover-image"><a href="/add" class="add-book">
+          <% if (books.length === 2) { %>
+            +
+          <% } %>
+        </a></div>
+        <div class="title-and-etc">
+          <% if (books.length > 2) { %>
+            <%= books[2].title %> <br>
+            <%= books[2].author %>
+          <% } %>
+        </div>
+        <div class="indiv-books-stats">
+          <% if (books.length > 2) { %>
+            <form action="/update/2?_method=PUT" method="POST">
+              <input type="number" name="startPage" class="page-entry" value="<%= books[2].startPage %>">
+            </form>
+            <p class="legend">Pages Left: </p>
+            <%= books[2].pagesLeft %>
+          <% } %>
+        </div></div>
+        <div class="book-display">
+          <div class="cover-image"><a href="/add" class="add-book">
+            <% if (books.length === 3) { %>
+              +
+            <% } %>
+          </a></div>
+        <div class="title-and-etc">
+          <% if (books.length > 3) { %>
+            <%= books[3].title %> <br>
+            <%= books[3].author %>
+          <% } %>
+        </div>
+        <div class="indiv-books-stats">
+          <% if (books.length > 3) { %>
+            <form action="/update/3?_method=PUT" method="POST">
+              <input type="number" method="POST" name="startPage" class="page-entry" value="<%= books[3].startPage %>">
+            </form>
+            <p class="legend">Pages Left: </p>
+            <%= books[3].pagesLeft %>
+          <% } %>
+        </div></div>
+      </div>
+    </div>
+  </body>
+</html>
