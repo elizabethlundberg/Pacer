@@ -8,7 +8,8 @@ const userSchema = new Schema(
       type: String,
       required: true
     },
-    lastUsed: Date
+    lastUsed: Date,
+    newMonth: Boolean
   },
   {
     timestamps: true

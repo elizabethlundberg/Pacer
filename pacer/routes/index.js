@@ -1,7 +1,6 @@
 var express = require('express')
 var router = express.Router()
 const indexCtrl = require('../controllers/indexCtrl')
-const updateCtrl = require('../controllers/updateCtrl')
 const passport = require('passport')
 
 /* GET home page. */
@@ -32,6 +31,6 @@ router.get('/logout', (req, res) => {
   })
 })
 
-router.get('/update0', updateCtrl.update0)
+router.put('/update/:book', indexCtrl.update)
 
 module.exports = router

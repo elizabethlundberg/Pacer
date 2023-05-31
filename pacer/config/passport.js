@@ -20,7 +20,8 @@ passport.use(
         user = await User.create({
           name: profile.displayName,
           googleId: profile.id,
-          lastUsed: new Date()
+          lastUsed: new Date(),
+          newMonth: true
         })
         return cb(null, user)
       } catch (err) {
