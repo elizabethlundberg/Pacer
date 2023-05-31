@@ -6,11 +6,11 @@
   <body>
     <div id="main-box">
       <div id="header" class="big-box">
-      <p>Pacer</p>
+      <p id="logo-text">Pacer</p>
       <% if (user) { %>
-        <a href="/logout">LOG OUT</a>
+        <a href="/logout" class="login">LOG OUT</a>
       <% } else { %>
-        <a href="/auth/google">LOG IN</a>
+        <a href="/auth/google" class="login">LOG IN</a>
       <% } %>
       </div>
       <div id="animation" class="big-box">

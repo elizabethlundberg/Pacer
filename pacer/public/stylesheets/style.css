@@ -1,7 +1,18 @@
+@font-face {
+  font-family: Bagnard;
+  src: url(../../fonts/Bagnard.otf)
+}
+
+:root {
+  --mainCol: #FFD365
+}
+
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   display: flex;
   justify-content: center;
+  font-family: Bagnard;
+  background-color: var(--mainCol)
 }
 
 #main-box {
@@ -62,6 +73,10 @@ a {
   grid-area: stats;
 }
 
+#logo-text {
+  grid-area: logo;
+}
+
 .stats-box{
   border: solid white;
   height: 80px;
@@ -74,8 +89,19 @@ a {
 
 #header {
   grid-area: logo;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: '. logo login';
+  justify-items: center;
+  align-items: center;
+  font-size: 30px;
 }
 
 #animation {
   grid-area: animation;
+}
+
+.login {
+  grid-area: login;
 }

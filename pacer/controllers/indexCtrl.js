@@ -7,37 +7,54 @@ const daysInMonth = (month, year) => {
   return numDays
 }
 
+const daysLeftInMonth = () => {
+  let date = new Date()
+  let month = date.getMonth()
+  let year = date.getFullYear()
+  let day = date.getDate()
+  let daysLeft = daysInMonth(month, year) - day + 2
+  return daysLeft
+}
+
 const calculateSchedule = async (req) => {
   let schedule = await Schedule.findOne({ user: req.user.id })
+  let date = new Date()
+  let daysLeft =
+    daysInMonth(date.getMonth(), date.getFullYear()) - date.getDate() + 2
+  let books = await Book.find({ user: req.user.id })
+  let totalPages = 0
+  books.forEach((book) => {
+    totalPages += book.endPage - book.startPage
+  })
+  let dailyGoal = []
+  let dailyReading = []
+  for (i = 0; i < daysLeft; i++) {
+    dailyGoal.push(totalPages / daysLeft)
+    dailyReading.push(0)
+  }
+  let newSchedule = {
+    user: req.user._id,
+    dailyGoal: dailyGoal,
+    dailyReading: dailyReading
+  }
   if (!schedule) {
-    let date = new Date()
-    let daysLeft =
-      daysInMonth(date.getMonth(), date.getFullYear()) - date.getDate() + 2
-    let books = await Book.find({ user: req.user.id })
-    let totalPages = 0
-    books.forEach((book) => {
-      totalPages += book.endPage - book.startPage
-    })
-    let dailyGoal = []
-    let dailyReading = []
-    for (i = 0; i < daysLeft; i++) {
-      dailyGoal.push(totalPages / daysLeft)
-      dailyReading.push(0)
-    }
-    let newSchedule = {
-      user: req.user._id,
-      dailyGoal: dailyGoal,
-      dailyReading: dailyReading
-    }
     await Schedule.create(newSchedule)
+  } else {
+    await Schedule.updateOne(
+      { user: req.user._id },
+      { $set: { dailyGoal: dailyGoal, dailyReading: dailyReading } }
+    )
   }
 }
 
 const checkForFirstLogin = async (req, date) => {
-  const lastDay = req.user.lastUsed.getDate()
-  const today = date.getDate()
-  if (today - lastDay < 0) {
+  const lastMonth = req.user.lastUsed.getMonth()
+  const thisMonth = date.getMonth()
+  if (thisMonth - lastMonth > 0) {
     oldBooks = await Book.deleteMany({ user: req.user._id })
+    oldSchedule = await Schedule.deleteOne({ user: req.user._ids })
+  } else {
+    console.log('same month')
   }
 }
 
@@ -62,8 +79,21 @@ const index = async (req, res) => {
     pgsPerDay = Math.floor(pgsPerDay)
     book.pgsPerDay = pgsPerDay
   })
-  let totalPagesPerDay = Math.floor(totalPagesLeft / daysLeft)
-  let stats = { totalPagesLeft, totalPagesPerDay }
+  let totalPagesPerDay
+  let pagesToday
+  if (req.user) {
+    let schedule = await Schedule.findOne({ user: req.user._id })
+    if (schedule) {
+      totalPagesPerDay = schedule.dailyGoal[schedule.dailyGoal.length - 1]
+      let daysLeft = daysLeftInMonth()
+      pagesToday =
+        schedule.dailyReading[schedule.dailyReading.length - daysLeft]
+    } else {
+      totalPagesPerDay = ''
+      pagesToday = ''
+    }
+  }
+  let stats = { totalPagesLeft, totalPagesPerDay, pagesToday }
   res.render('index', { user: req.user, books, stats })
 }
 
@@ -105,29 +135,27 @@ const addBook = async (req, res) => {
 
 const update = async (req, res) => {
   let books = []
-  let lastPageCount = req.params.book.startPage
   if (req.user) {
     books = await Book.find({ user: req.user._id })
+    let title = books[`${req.params.book}`].title
+    let pageIncrease = req.body.startPage - books[req.params.book].startPage
+    await Book.updateOne(
+      { title: title },
+      { $set: { startPage: req.body.startPage } }
+    )
+    let schedule = await Schedule.findOne({ user: req.user._id })
     let date = new Date()
-    checkForFirstLogin(req, date)
-    books[`${req.params.book}`].startPage = req.body.startPage
+    let month = date.getMonth()
+    let year = date.getFullYear()
+    let day = date.getDate()
+    let daysLeft = daysInMonth(month, year) - day + 2
+    let newTotal =
+      schedule.dailyReading[schedule.dailyReading.length - daysLeft]
+    newTotal += pageIncrease
+    schedule.dailyReading[schedule.dailyReading.length - daysLeft] = newTotal
+    await schedule.save()
   }
-  const date = new Date()
-  const totalDays = daysInMonth(date.getMonth(), date.getFullYear())
-  // One "plus one" to fix JS off-by-one date error, one "plus one" to include the last day of the month
-  const daysLeft = totalDays - date.getDate() + 2
-  let totalPagesLeft = 0
-  books.forEach((book) => {
-    let pagesLeft = book.endPage - book.startPage
-    pagesLeft = Math.floor(pagesLeft)
-    book.pagesLeft = pagesLeft
-    totalPagesLeft += pagesLeft
-    let pgsPerDay = (book.endPage - book.startPage) / daysLeft
-    pgsPerDay = Math.floor(pgsPerDay)
-    book.pgsPerDay = pgsPerDay
-  })
-  let stats = { totalPagesLeft, totalPagesPerDay }
-  res.render('index', { user: req.user, books, stats })
+  res.redirect('/')
 }
 
 module.exports = { index, addBook, addInterface, update }
