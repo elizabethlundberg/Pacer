@@ -7,6 +7,32 @@ const daysInMonth = (month, year) => {
   return numDays
 }
 
+const calculateSchedule = async (req) => {
+  let schedule = await Schedule.findOne({ user: req.user.id })
+  if (!schedule) {
+    let date = new Date()
+    let daysLeft =
+      daysInMonth(date.getMonth(), date.getFullYear()) - date.getDate() + 2
+    let books = await Book.find({ user: req.user.id })
+    let totalPages = 0
+    books.forEach((book) => {
+      totalPages += book.endPage - book.startPage
+    })
+    let dailyGoal = []
+    let dailyReading = []
+    for (i = 0; i < daysLeft; i++) {
+      dailyGoal.push(totalPages / daysLeft)
+      dailyReading.push(0)
+    }
+    let newSchedule = {
+      user: req.user._id,
+      dailyGoal: dailyGoal,
+      dailyReading: dailyReading
+    }
+    await Schedule.create(newSchedule)
+  }
+}
+
 const checkForFirstLogin = async (req, date) => {
   const lastDay = req.user.lastUsed.getDate()
   const today = date.getDate()
@@ -64,22 +90,12 @@ const addInterface = async (req, res) => {
   res.render('addBooks', { user: req.user, books, stats })
 }
 
-const updateSchedule = async (req) => {
-  let schedule = await Schedule.findOne({ user: req.user.id })
-  if (!schedule) {
-    let date = new Date()
-    console.log(date.getDate)
-    // let daysLeft =
-    //   daysInMonth(date.getMonth(), date.getFullYear()) - date.getDate + 1
-  }
-}
-
 const addBook = async (req, res) => {
   try {
     let book = req.body
     book.user = req.user._id
     const successMsg = await Book.create(req.body)
-    updateSchedule(req)
+    calculateSchedule(req)
     res.redirect('/')
   } catch (err) {
     console.log(err)
@@ -110,9 +126,8 @@ const update = async (req, res) => {
     pgsPerDay = Math.floor(pgsPerDay)
     book.pgsPerDay = pgsPerDay
   })
-  let totalPagesPerDay = Math.floor(totalPagesLeft / daysLeft)
   let stats = { totalPagesLeft, totalPagesPerDay }
-  res.redirect('/')
+  res.render('index', { user: req.user, books, stats })
 }
 
 module.exports = { index, addBook, addInterface, update }
