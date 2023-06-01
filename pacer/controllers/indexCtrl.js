@@ -84,10 +84,13 @@ const index = async (req, res) => {
   if (req.user) {
     let schedule = await Schedule.findOne({ user: req.user._id })
     if (schedule) {
-      totalPagesPerDay = schedule.dailyGoal[schedule.dailyGoal.length - 1]
       let daysLeft = daysLeftInMonth()
       pagesToday =
         schedule.dailyReading[schedule.dailyReading.length - daysLeft]
+      if (pagesToday === 0) {
+        calculateSchedule(req)
+      }
+      totalPagesPerDay = schedule.dailyGoal[schedule.dailyGoal.length - 1]
     } else {
       totalPagesPerDay = ''
       pagesToday = ''

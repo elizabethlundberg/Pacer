@@ -1,4 +1,19 @@
-<%- include('./partials/header') %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div id="main-box">
+      <div id="header" class="big-box">
+      <p id="logo-text">Pacer</p>
+      <% if (user) { %>
+        <a href="/logout" class="login">Log Out</a>
+      <% } else { %>
+        <a href="/auth/google" class="login">Log In</a>
+      <% } %>
+      </div>
+      <div id="animation" class="big-box">
         <% if (user) { %>
           <div id="add-books-box">
             <form id="new-book-form" action="/" method="POST">

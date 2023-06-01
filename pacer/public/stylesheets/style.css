@@ -1,6 +1,6 @@
 @font-face {
   font-family: Bagnard;
-  src: url(../../fonts/Bagnard.otf)
+  src: url(/fonts/Bagnard.otf)
 }
 
 :root {
@@ -108,6 +108,7 @@ a {
   margin: 5px 0 0 0;
   background-color: black;
   padding: 15px 20px 10px 20px;
+  border-radius: 10%
 }
 
 .stats-box{
