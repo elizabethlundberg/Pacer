@@ -109,10 +109,11 @@
     </div></div>
   </div>
   <div id="stats" class="big-box">
-    <div id="total-pages-left" class="stats-box"><% if (stats) { %>
-      Total Pages Left: <%= stats.totalPagesLeft %> <br>
-      Goal for Today: <%= stats.totalPagesPerDay %> <br>
-      Today's Reading: <%= stats.pagesToday %>
+    <div id="total-pages-left" class="stats-box">
+      <% if (stats) { %>
+      <h4 id="pages-left">Total Pages Left: <%= stats.totalPagesLeft %> |&nbsp</h4>
+      <h4 id="goal-for-today">Goal for Today: <%= stats.totalPagesPerDay %> |&nbsp</h4>
+      <h4 id="pages-read">Today's Reading: <%= stats.pagesToday %> </h4>
       <% } %>
     <br></div>
   </div>

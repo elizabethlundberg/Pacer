@@ -116,7 +116,12 @@ a {
   background-color: var(--leftCol);
   display: flex;
   padding: 20px;
+  height: 20px;
   font-size: 20px;
+}
+
+.stats-box > h4 {
+  margin: 0;
 }
 
 .indiv-books-stats {

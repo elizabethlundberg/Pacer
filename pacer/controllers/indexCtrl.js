@@ -82,6 +82,9 @@ const index = async (req, res) => {
   let totalPagesPerDay
   let pagesToday
   if (req.user) {
+    let curTime = new Date()
+    req.user.lastUsed = curTime.toLocaleDateString()
+    await req.user.save()
     let schedule = await Schedule.findOne({ user: req.user._id })
     if (schedule) {
       let daysLeft = daysLeftInMonth()
@@ -90,12 +93,15 @@ const index = async (req, res) => {
       if (pagesToday === 0) {
         calculateSchedule(req)
       }
-      totalPagesPerDay = schedule.dailyGoal[schedule.dailyGoal.length - 1]
+      totalPagesPerDay = Math.floor(
+        schedule.dailyGoal[schedule.dailyGoal.length - 1]
+      )
     } else {
       totalPagesPerDay = ''
       pagesToday = ''
     }
   }
+  console.log(books)
   let stats = { totalPagesLeft, totalPagesPerDay, pagesToday }
   res.render('index', { user: req.user, books, stats })
 }
@@ -143,7 +149,7 @@ const update = async (req, res) => {
     let title = books[`${req.params.book}`].title
     let pageIncrease = req.body.startPage - books[req.params.book].startPage
     await Book.updateOne(
-      { title: title },
+      { title: title, user: req.user._id },
       { $set: { startPage: req.body.startPage } }
     )
     let schedule = await Schedule.findOne({ user: req.user._id })
