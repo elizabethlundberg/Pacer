@@ -1,5 +1,5 @@
 // made with the extensive help of this tutorial: https://www.codeandweb.com/texturepacker/tutorials/how-to-create-sprite-sheets-and-animations-with-pixijs
-const app = new PIXI.Application({ width: 720, height: 250 })
+const app = new PIXI.Application({ width: 720, height: 230 })
 
 const animationBox = document.getElementById('animation')
 animationBox.appendChild(app.view)
@@ -30,7 +30,7 @@ PIXI.Assets.load([
   const animations = PIXI.Assets.cache.get('animation/sprites.json').data
     .animations
   const runner = PIXI.AnimatedSprite.fromFrames(animations['runner/runner'])
-  runner.animationSpeed = 1 / 6
+  runner.animationSpeed = 1 / 15
   runner.position.set(runnerPosition, 140)
   runner.play()
   app.stage.addChild(runner)
