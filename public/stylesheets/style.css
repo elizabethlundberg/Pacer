@@ -19,7 +19,7 @@ body {
 
 #main-box {
   display: grid;
-  grid-template-rows: 110px 270px 270px 80px;
+  grid-template-rows: 110px 270px 270px 90px;
   grid-template-areas: 'logo' 'animation' 'books' 'stats'
 }
 
@@ -109,7 +109,7 @@ a {
   background-color: var(--leftCol);
   padding: 15px 20px 10px 20px;
   border-radius: 10%;
-  width: 225px;
+  width: 222px;
 }
 
 .stats-box{

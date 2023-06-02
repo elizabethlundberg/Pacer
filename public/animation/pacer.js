@@ -13,7 +13,7 @@ let pagesRead = parseInt(pagesReadText.split(': ')[1])
 if (pagesRead === 0) {
   pagesRead = 1
 }
-let runnerPosition = (goalForToday / pagesRead) * 32
+let runnerPosition = 375 - (pagesRead / goalForToday) * 350
 console.log(runnerPosition)
 
 PIXI.Assets.load([
